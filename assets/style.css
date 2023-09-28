@@ -96,11 +96,6 @@
     flex-wrap: nowrap;
 }
 
-.inputRangeNotice {
-    background-color: #ebebeb;
-    padding: 4px 8px;
-    color: #484848;
-}
 
 .originInput {
     background-color: #dddddd59;
@@ -181,32 +176,12 @@ h4 {
     border-radius: 8px;
 }
 
-.opChar {
-    margin: 8px 0 8px 4px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: flex-end;
-}
-
-.opChar>span {
-    font-size: 0.9em;
-    margin-left: 0.3em;
-}
-
-.subLabel {
-    border: none;
-    height: 1.1em;
-    width: 4.5em;
-    position: absolute;
-}
-
 .keyInput {
     width: 100%;
     text-align: center;
     margin-bottom: 4px;
     background: #ffffff7a;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 2px;
     padding-top: 4px;
 }
@@ -225,30 +200,4 @@ h4 {
 
 .ghIcon {
     max-height: 1em;
-}
-
-.progressBase {
-    margin: auto;
-    width: 500px;
-    height: 8px;
-    border-radius: 4px;
-    background-color: #d1d1d1;
-    display: flex;
-    align-items: center;
-}
-
-.reversedProgress {
-    display: flex;
-    flex-direction: row-reverse;
-}
-
-.progressInner {
-    height: 100%;
-    border-radius: 4px;
-    transition: all 0.5s cubic-bezier(0, 0.64, 0.36, 1);
-}
-
-.progressLine {
-    width: 60%;
-    background-color: #959595;
 }
