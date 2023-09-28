@@ -140,13 +140,17 @@ h4 {
 }
 
 #noteArea {
-    word-break: break-all;
+    word-break: normal;
     text-align: left;
     font-size: 1.1em;
     font-family: 'Anonymous Pro';
     height: 65vh;
     overflow-y: scroll;
     padding: 4px;
+}
+
+#noteArea div {
+    font-family: 'Anonymous Pro';
 }
 
 #noteArea:focus-visible {
