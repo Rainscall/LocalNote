@@ -83,7 +83,12 @@ function resetKey() {
     const resetKeyText = document.getElementById('resetKeyText');
     if (resetKeyCilckTimes == 0) {
         resetKeyCilckTimes += 1;
-        resetKeyText.innerText = 'confirm';
+        resetKeyText.innerHTML = '<span style="color:#4b4b4b;";>confirm</span>';
+        // Set a timeout to reset the click times after few seconds
+        setTimeout(function() {
+            resetKeyCilckTimes = 0;
+            resetKeyText.innerText = 'reset';
+        }, 1700);
         return;
     }
 

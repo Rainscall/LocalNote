@@ -133,7 +133,7 @@ h4 {
 }
 
 .totpResult {
-    background-color: #ffffff7a;
+    background-color: #fff;
     border-radius: 8px;
     margin: 8px 8px 0 8px;
     padding: 8px;
@@ -144,7 +144,7 @@ h4 {
     text-align: left;
     font-size: 1.1em;
     font-family: 'Anonymous Pro';
-    height: 65vh;
+    min-height: 57vh;
     overflow-y: scroll;
     padding: 4px;
 }
@@ -205,3 +205,4 @@ h4 {
 .ghIcon {
     max-height: 1em;
 }
+
