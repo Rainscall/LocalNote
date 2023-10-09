@@ -77,8 +77,9 @@ function startUp() {
         }).showToast();
         return;
     } else {
+        noteArea.innerText = '';
         Toastify({
-            text: "Note not found.",
+            text: "New note created.",
             duration: 1200,
             className: "info",
             position: "center",
@@ -89,7 +90,7 @@ function startUp() {
         }).showToast();
         return;
     }
-};
+}
 
 function encryptAES256(plaintext, key) {
     const ciphertext = CryptoJS.AES.encrypt(plaintext, key).toString();
@@ -114,6 +115,7 @@ function resetKey() {
         return;
     }
 
+    noteNameInput.value = '';
     localStorage.clear();
     Toastify({
         text: "note cleared.",
@@ -129,20 +131,21 @@ function resetKey() {
     resetKeyCilckTimes = 0;
     resetKeyText.innerText = 'reset';
 }
+
 const noteNameInput = document.getElementById('noteNameInput');
 function saveToLS() {
-    let noteKey = noteNameInput.value;
-    if (!noteKey) {
-        noteKey = "note.1";
+    let noteKey = 'note.' + noteNameInput.value;
+    if (noteKey == 'note.') {//判断是否为空
+        noteKey = "note.untitled";
     }
     const noteArea = document.getElementById('noteArea');
     localStorage.setItem(noteKey, encryptAES256(noteArea.innerText, decryptKey));
 }
 
 function readFromLS() {
-    let noteKey = noteNameInput.value;
-    if (!noteKey) {
-        noteKey = "note.1";
+    let noteKey = 'note.' + noteNameInput.value;
+    if (noteKey == 'note.') { //判断是否为空
+        noteKey = "note.untitled";
     }
     if (!localStorage.getItem(noteKey)) {
         return;
@@ -198,3 +201,55 @@ function copyInnerText(id) {
     }
 }
 
+function getAllNoteKey() {
+    const listBasePart = document.getElementById("listBasePart");
+    const listTable = document.getElementById("listTable");
+    var itemCounter = 0;
+
+    listTable.innerHTML = "";
+    listBasePart.style.display = "flex";
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("note.")) {
+            let itemDiv = document.createElement("div");
+            itemDiv.setAttribute("onclick", "openNote(\"" + key + "\")");
+            itemDiv.innerText = key.slice(5);
+            listTable.appendChild(itemDiv);
+
+            itemCounter = itemCounter + 1
+        }
+
+    }
+    if (itemCounter == 0) {
+        let itemDiv = document.createElement("div");
+        itemDiv.style.textAlign = "center";
+        itemDiv.innerText = "[No note found.]";
+        listTable.appendChild(itemDiv);
+    }
+}
+
+function openNote(noteKey) {
+    closeOverlay('listBasePart');
+
+    noteNameInput.value = noteKey.slice(5);
+    var localNote = decryptAES256(localStorage.getItem(noteKey), decryptKey);
+    if (localNote) {
+        noteArea.innerText = localNote;
+        Toastify({
+            text: "Note loaded.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+        return;
+    }
+}
+
+function closeOverlay(elementID) {
+    document.getElementById(elementID).style.display = "none";
+}

@@ -16,6 +16,21 @@
 </head>
 
 <body onload="startUp();">
+
+    <div class="listBasePart" id="listBasePart" style="display: none;">
+        <div class="mainPart">
+            <div class="childPart">
+                <h2>List:</h2>
+            </div>
+            <div class="childPart listTable" id="listTable">
+                
+            </div>
+            <div class="childPart">
+                <a style="color: #777777;" onclick="closeOverlay('listBasePart');" href="javascript:void(0);">close</a>
+            </div>
+        </div>
+    </div>
+
     <div class="basePart">
         <div class="mainPart">
             <div class="childPart" style="margin-bottom:0;">
@@ -28,11 +43,19 @@
                     <div class="totpResult">
                         <div id="noteArea" contentEditable="true"></div>
                     </div>
-                    <div class="inputRange">
-                        <form action="javascript:readFromLS();startUp();" style="width: 100%;">
+                    <div class="inputRange noteTitleBar">
+                        <form action="javascript:readFromLS();startUp();" style="width: 80%;margin-right: 8px;">
                             <input type="text" autocomplete="off" placeholder="Note title" id="noteNameInput"
                                 class="keyInput nameInput">
                         </form>
+                        <div class="keyInput" style="width: 20%;">
+                            <div>
+                                <a id="getAllNoteKey" style="color: #777777;" onclick="getAllNoteKey();"
+                                    href="javascript:void(0);">
+                                    <span>list</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="inputRange" style="margin-top: 4px;">
                         <div class="keyInput" style="width: 100%;">
