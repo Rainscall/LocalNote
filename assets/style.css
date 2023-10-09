@@ -98,7 +98,7 @@
     background-color: #dddddd59;
 }
 
-.listTable div {
+.listTable .itemDivFather {
     margin: 8px;
     background-color: #cecdcd59;
     border-radius: 8px;
@@ -106,10 +106,41 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.listTable div:hover {
+.listTable .itemDivFather>div:first-child {
+    cursor: pointer;
+    width: 100%;
+}
+
+.listTable .itemDivFather:hover {
     background-color: #cecdcdb7;
+}
+
+.delButtom {
+    cursor: pointer;
+    position: relative;
+}
+
+.delButtom::before,
+.delButtom::after {
+    position: absolute;
+    content: ' ';
+    background-color: #9b9b9b;
+    right: 6px;
+    width: 2.5px;
+    height: 16px;
+}
+
+.delButtom::before {
+    transform: rotate(45deg);
+}
+
+.delButtom::after {
+    transform: rotate(-45deg);
 }
 
 .listBasePart,

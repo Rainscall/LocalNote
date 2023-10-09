@@ -153,6 +153,22 @@ function readFromLS() {
     return decryptAES256(localStorage.getItem(noteKey), decryptKey);
 }
 
+function removeFromLS(noteKey) {
+    localStorage.removeItem(noteKey);
+    Toastify({
+        text: "note removed.",
+        duration: 1200,
+        className: "info",
+        position: "center",
+        gravity: "bottom",
+        style: {
+            background: "#414141",
+        }
+    }).showToast();
+
+    getAllNoteKey();
+}
+
 function triggerButtonById(buttonId) {
     const button = document.getElementById(buttonId);
 
@@ -212,10 +228,23 @@ function getAllNoteKey() {
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.startsWith("note.")) {
+            let itemDivFather = document.createElement("div");
             let itemDiv = document.createElement("div");
+            let delButtom = document.createElement("div");
+
+            delButtom.className = "delButtom";
+            delButtom.innerText = "";
+
             itemDiv.setAttribute("onclick", "openNote(\"" + key + "\")");
             itemDiv.innerText = key.slice(5);
-            listTable.appendChild(itemDiv);
+            delButtom.setAttribute("onclick", "removeFromLS(\"" + key + "\")");
+
+
+            itemDivFather.className = "itemDivFather";
+            itemDivFather.appendChild(itemDiv);
+            itemDivFather.appendChild(delButtom);
+
+            listTable.appendChild(itemDivFather);
 
             itemCounter = itemCounter + 1
         }
@@ -224,7 +253,7 @@ function getAllNoteKey() {
     if (itemCounter == 0) {
         let itemDiv = document.createElement("div");
         itemDiv.style.textAlign = "center";
-        itemDiv.innerText = "[No note found.]";
+        itemDiv.innerText = "[List is empty.]";
         listTable.appendChild(itemDiv);
     }
 }
@@ -247,6 +276,18 @@ function openNote(noteKey) {
             }
         }).showToast();
         return;
+    } else {
+        noteArea.innerText = '';
+        Toastify({
+            text: "Note loaded.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
     }
 }
 
