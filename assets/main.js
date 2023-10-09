@@ -39,7 +39,7 @@ observer.observe(noteArea, config);
 var toastTimeout;
 
 
-noteArea.addEventListener('paste', function(e) {
+noteArea.addEventListener('paste', function (e) {
     e.preventDefault(); // 阻止默认行为，即阻止将粘贴的内容插入到div中
     var text = e.clipboardData.getData('text/plain'); // 获取粘贴的纯文本内容
     document.execCommand('insertText', false, text); // 将纯文本内容插入到div中
@@ -61,13 +61,35 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
-
 function startUp() {
     var localNote = readFromLS();
     if (localNote) {
         noteArea.innerText = localNote;
+        Toastify({
+            text: "Note loaded.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+        return;
+    } else {
+        Toastify({
+            text: "Note not found.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+        return;
     }
-}
+};
 
 function encryptAES256(plaintext, key) {
     const ciphertext = CryptoJS.AES.encrypt(plaintext, key).toString();
@@ -85,7 +107,7 @@ function resetKey() {
         resetKeyCilckTimes += 1;
         resetKeyText.innerHTML = '<span style="color:#4b4b4b;";>confirm</span>';
         // Set a timeout to reset the click times after few seconds
-        setTimeout(function() {
+        setTimeout(function () {
             resetKeyCilckTimes = 0;
             resetKeyText.innerText = 'reset';
         }, 1700);
@@ -107,17 +129,25 @@ function resetKey() {
     resetKeyCilckTimes = 0;
     resetKeyText.innerText = 'reset';
 }
-
+const noteNameInput = document.getElementById('noteNameInput');
 function saveToLS() {
+    let noteKey = noteNameInput.value;
+    if (!noteKey) {
+        noteKey = "note.1";
+    }
     const noteArea = document.getElementById('noteArea');
-    localStorage.setItem("note.1", encryptAES256(noteArea.innerText, decryptKey));
+    localStorage.setItem(noteKey, encryptAES256(noteArea.innerText, decryptKey));
 }
 
 function readFromLS() {
-    if (!localStorage.getItem("note.1")) {
+    let noteKey = noteNameInput.value;
+    if (!noteKey) {
+        noteKey = "note.1";
+    }
+    if (!localStorage.getItem(noteKey)) {
         return;
     }
-    return decryptAES256(localStorage.getItem("note.1"), decryptKey);
+    return decryptAES256(localStorage.getItem(noteKey), decryptKey);
 }
 
 function triggerButtonById(buttonId) {

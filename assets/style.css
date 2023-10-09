@@ -206,3 +206,12 @@ h4 {
     max-height: 1em;
 }
 
+.nameInput {
+    border: none;
+    margin-top: 8px;
+    height: 1.2em;
+}
+
+.nameInput:focus-visible {
+    outline: none;
+}

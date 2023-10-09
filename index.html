@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body onload="startUp()">
+<body onload="startUp();">
     <div class="basePart">
         <div class="mainPart">
             <div class="childPart" style="margin-bottom:0;">
@@ -28,24 +28,19 @@
                     <div class="totpResult">
                         <div id="noteArea" contentEditable="true"></div>
                     </div>
-                    <div class="inputRange" style="margin-top: 8px;">
+                    <div class="inputRange">
+                        <form action="javascript:readFromLS();startUp();" style="width: 100%;">
+                            <input type="text" autocomplete="off" placeholder="Note title" id="noteNameInput"
+                                class="keyInput nameInput">
+                        </form>
+                    </div>
+                    <div class="inputRange" style="margin-top: 4px;">
                         <div class="keyInput" style="width: 100%;">
                             <div>
                                 <a style="color: #777777;" onclick="resetKey();" href="javascript:void(0);">
                                     <span id="resetKeyText">reset</span>
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="inputRange" id="progressArea" style="display: none;">
-                        <div class="progressBase reversedProgress">
-                            <div class="progressInner progressLine"></div>
-                        </div>
-                        <nobr>
-                            <span class="inputRangeNotice">Expires in:&nbsp;<span id="rangeValue">&nbsp;</span>s</span>
-                        </nobr>
-                        <div class="progressBase">
-                            <div class="progressInner progressLine"></div>
                         </div>
                     </div>
                 </div>
