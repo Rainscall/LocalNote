@@ -19,14 +19,47 @@
 
     <div class="listBasePart" id="listBasePart" style="display: none;">
         <div class="mainPart">
+            <div class="childPart noPadding">
+                <h2>Functions:</h2>
+            </div>
             <div class="childPart">
+                <form action="javascript:changeTitleBar();readFromLS();startUp();closeOverlay('listBasePart');">
+                    <input type="text" autocomplete="off" placeholder="Create new note or open a note"
+                        id="noteNameInput" class="keyInput nameInput">
+                </form>
+            </div>
+            <div class="childPart noPadding">
                 <h2>List:</h2>
             </div>
             <div class="childPart listTable" id="listTable">
-                
+
             </div>
-            <div class="childPart">
-                <a style="color: #777777;" onclick="closeOverlay('listBasePart');" href="javascript:void(0);">close</a>
+
+
+            <div class="closeOverlayBar">
+                <div class="childPart" style="padding: 0 12px;">
+                    <div class="inputRange" style="margin-top: 4px;">
+                        <div class="keyInput" style="width: 100%;">
+                            <div>
+                                <a style="color: #777777;" onclick="resetKey();" href="javascript:void(0);">
+                                    <span id="resetKeyText">reset</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="childPart closeOverlayButtom" style="padding: 0 12px;width: 100%;">
+                    <div class="inputRange" style="margin-top: 4px;">
+                        <div class="keyInput" style="width: 100%;">
+                            <div>
+                                <a style="color: #777777;" onclick="closeOverlay('listBasePart');"
+                                    href="javascript:void(0);">
+                                    <span id="">close</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +68,7 @@
         <div class="mainPart">
             <div class="childPart" style="margin-bottom:0;">
                 <h1>
-                    <a href="/" style="color: #484848;">LocalNote</a>
+                    <a href="/" style="color: #484848;" id="titleBar">LocalNote</a>
                 </h1>
             </div>
             <div class="childPart" style="min-height: 40px;background-color: #dddddd59;">
@@ -44,28 +77,15 @@
                         <div id="noteArea" contentEditable="true"></div>
                     </div>
                     <div class="inputRange noteTitleBar">
-                        <form action="javascript:readFromLS();startUp();" style="width: 80%;margin-right: 8px;">
-                            <input type="text" autocomplete="off" placeholder="Note title" id="noteNameInput"
-                                class="keyInput nameInput">
-                        </form>
-                        <div class="keyInput" style="width: 20%;">
+                        <div class="keyInput" style="width: 100%;margin-top: 8px;background-color: #ffffff7a;">
                             <div>
-                                <a id="getAllNoteKey" style="color: #777777;" onclick="getAllNoteKey();"
+                                <a id="openMenuPage" style="color: #777777;" onclick="openMenuPage();"
                                     href="javascript:void(0);">
-                                    <span>list</span>
+                                    <span>menu</span>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="inputRange" style="margin-top: 4px;">
-                        <div class="keyInput" style="width: 100%;">
-                            <div>
-                                <a style="color: #777777;" onclick="resetKey();" href="javascript:void(0);">
-                                    <span id="resetKeyText">reset</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="chilePart noMargin">

@@ -106,7 +106,7 @@ function resetKey() {
     const resetKeyText = document.getElementById('resetKeyText');
     if (resetKeyCilckTimes == 0) {
         resetKeyCilckTimes += 1;
-        resetKeyText.innerHTML = '<span style="color:#4b4b4b;";>confirm</span>';
+        resetKeyText.innerHTML = '<span style="color:#fff;";>confirm</span>';
         // Set a timeout to reset the click times after few seconds
         setTimeout(function () {
             resetKeyCilckTimes = 0;
@@ -116,6 +116,7 @@ function resetKey() {
     }
 
     noteNameInput.value = '';
+    titleBar.innerText = 'LocalNote';
     localStorage.clear();
     Toastify({
         text: "note cleared.",
@@ -130,22 +131,24 @@ function resetKey() {
     noteArea.innerText = "";
     resetKeyCilckTimes = 0;
     resetKeyText.innerText = 'reset';
+    openMenuPage();
 }
 
 const noteNameInput = document.getElementById('noteNameInput');
 function saveToLS() {
-    let noteKey = 'note.' + noteNameInput.value;
+    let noteKey = 'note.' + titleBar.innerText;
     if (noteKey == 'note.') {//判断是否为空
-        noteKey = "note.untitled";
+        noteKey = "note.LocalNote";
     }
     const noteArea = document.getElementById('noteArea');
     localStorage.setItem(noteKey, encryptAES256(noteArea.innerText, decryptKey));
 }
 
 function readFromLS() {
-    let noteKey = 'note.' + noteNameInput.value;
+    let noteKey = 'note.' + titleBar.innerText;
+    console.log(noteKey);
     if (noteKey == 'note.') { //判断是否为空
-        noteKey = "note.untitled";
+        noteKey = "note.LocalNote";
     }
     if (!localStorage.getItem(noteKey)) {
         return;
@@ -166,7 +169,7 @@ function removeFromLS(noteKey) {
         }
     }).showToast();
 
-    getAllNoteKey();
+    openMenuPage();
 }
 
 function triggerButtonById(buttonId) {
@@ -217,9 +220,10 @@ function copyInnerText(id) {
     }
 }
 
-function getAllNoteKey() {
+function openMenuPage() {
     const listBasePart = document.getElementById("listBasePart");
     const listTable = document.getElementById("listTable");
+
     var itemCounter = 0;
 
     listTable.innerHTML = "";
@@ -259,12 +263,15 @@ function getAllNoteKey() {
 }
 
 function openNote(noteKey) {
+    const titleBar = document.getElementById('titleBar');
+
     closeOverlay('listBasePart');
 
-    noteNameInput.value = noteKey.slice(5);
+    titleBar.innerText = noteKey.slice(5);
     var localNote = decryptAES256(localStorage.getItem(noteKey), decryptKey);
     if (localNote) {
         noteArea.innerText = localNote;
+        titleBar.innerText = noteKey.slice(5);
         Toastify({
             text: "Note loaded.",
             duration: 1200,
@@ -278,6 +285,7 @@ function openNote(noteKey) {
         return;
     } else {
         noteArea.innerText = '';
+        titleBar.innerText = 'LocalNote'
         Toastify({
             text: "Note loaded.",
             duration: 1200,
@@ -293,4 +301,9 @@ function openNote(noteKey) {
 
 function closeOverlay(elementID) {
     document.getElementById(elementID).style.display = "none";
+}
+
+function changeTitleBar() {
+    titleBar.innerText = noteNameInput.value;
+    noteNameInput.value = '';
 }

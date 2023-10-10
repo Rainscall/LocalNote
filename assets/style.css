@@ -75,6 +75,16 @@
     }
 }
 
+@keyframes getDarker {
+    from {
+        background-color: #cecdcd59;
+    }
+
+    to {
+        background-color: #cecdcdb7;
+    }
+}
+
 .listBasePart {
     min-height: 100vh;
     background-color: #f3f3f3;
@@ -117,6 +127,7 @@
 }
 
 .listTable .itemDivFather:hover {
+    animation: getDarker 0.445s;
     background-color: #cecdcdb7;
 }
 
@@ -203,11 +214,18 @@ h2,
 h3,
 h4 {
     color: #484848;
+}
+
+h1 {
     font-size: 250%;
 }
 
 .noMargin {
     margin: 0;
+}
+
+.noPadding {
+    padding: 0;
 }
 
 .totpResult {
@@ -262,7 +280,7 @@ h4 {
     width: 100%;
     text-align: center;
     margin-bottom: 4px;
-    background: #ffffff7a;
+    background: transparent;
     border-radius: 8px;
     padding: 2px;
     padding-top: 4px;
@@ -299,4 +317,56 @@ h4 {
     justify-content: center;
     flex-wrap: nowrap;
     flex-direction: row;
+}
+
+form:has(#noteNameInput) {
+    background-color: transparent;
+}
+
+div.childPart:has(form) {
+    padding: 0 12px;
+    background-color: #ffffff7a;
+}
+
+@keyframes getDarkerRed {
+    from {
+        background-color: #903c4b;
+    }
+
+    to {
+        background-color: #840D23;
+    }
+}
+
+div.childPart:has(#resetKeyText) {
+    width: fit-content;
+    background-color: #903c4b;
+}
+
+div.childPart:has(#resetKeyText):hover {
+    animation: getDarkerRed 0.445s;
+    background-color: #840D23;
+}
+
+#resetKeyText {
+    color: #fff;
+}
+
+.closeOverlayBar {
+    max-width: 80vw;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeOverlayButtom {
+    background-color: #cecdcd59;
+}
+
+.closeOverlayButtom:hover {
+    animation: getDarker 0.445s;
+    background-color: #cecdcdb7;
 }
