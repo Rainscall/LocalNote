@@ -323,7 +323,7 @@ form:has(#noteNameInput) {
     background-color: transparent;
 }
 
-div.childPart:has(form) {
+.createNewNote {
     padding: 0 12px;
     background-color: #ffffff7a;
 }
@@ -338,12 +338,14 @@ div.childPart:has(form) {
     }
 }
 
-div.childPart:has(#resetKeyText) {
-    width: fit-content;
+.resetButtom {
+    width: fit-content !important;
     background-color: #903c4b;
+    padding: 1ex 1em 2px 1em;
+    border-radius: 16px;
 }
 
-div.childPart:has(#resetKeyText):hover {
+.resetButtom:hover {
     animation: getDarkerRed 0.445s;
     background-color: #840D23;
 }
@@ -353,8 +355,8 @@ div.childPart:has(#resetKeyText):hover {
 }
 
 .closeOverlayBar {
-    max-width: 80vw;
-    width: 50%;
+    max-width: 512px;
+    width: calc(80vw + 24px);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -364,9 +366,25 @@ div.childPart:has(#resetKeyText):hover {
 
 .closeOverlayButtom {
     background-color: #cecdcd59;
+    cursor: pointer;
+    padding: 1ex 1em 2px 1em;
+    width: 100%;
+    text-align: center;
+    margin-left: 8px;
+    border-radius: 16px;
+
 }
 
 .closeOverlayButtom:hover {
     animation: getDarker 0.445s;
     background-color: #cecdcdb7;
+}
+
+.closeOverlayBar>div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
 }
