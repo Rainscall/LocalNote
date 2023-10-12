@@ -189,10 +189,36 @@
 }
 
 
+@keyframes originInputHoverIn {
+    from {
+        box-shadow: 0 0 14px 3px #dddddd8a;
+    }
+
+    to {
+        box-shadow: 0 0 20px 5px #b7b7b761;
+    }
+}
+
+@keyframes originInputHoverOut {
+    from {
+        box-shadow: 0 0 20px 5px #b7b7b761;
+    }
+
+    to {
+        box-shadow: 0 0 14px 3px #dddddd8a;
+    }
+}
+
 .originInput {
-    background-color: #dddddd59;
-    border-radius: 6px;
+    border-radius: 16px;
     padding: 4px;
+    box-shadow: 0 0 14px 3px #dddddd8a;
+    animation: originInputHoverOut 0.246s;
+}
+
+.originInput:hover {
+    box-shadow: 0 0 20px 5px #b7b7b761;
+    animation: originInputHoverIn 0.246s;
 }
 
 .opBar {
@@ -231,7 +257,7 @@ h1 {
     padding: 0;
 }
 
-.totpResult {
+.noteArea {
     background-color: #fff;
     border-radius: 8px;
     margin: 8px 8px 0 8px;
@@ -322,7 +348,7 @@ h1 {
     flex-direction: row;
 }
 
-form:has(#noteNameInput) {
+form {
     background-color: transparent;
 }
 
@@ -342,7 +368,7 @@ form:has(#noteNameInput) {
 }
 
 .resetButtom {
-    width: fit-content !important;
+    width: fit-content;
     background-color: #903c4b;
     padding: 1ex 1em 2px 1em;
     border-radius: 16px;
