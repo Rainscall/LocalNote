@@ -44,25 +44,9 @@
     /* Legacy iOS */
 }
 
-
-/* anonymous-pro-regular */
 @font-face {
-    font-family: 'Anonymous Pro';
-    font-style: normal;
-    font-weight: regular;
-    src: url('//lib.baomitu.com/fonts/anonymous-pro/anonymous-pro-regular.eot');
-    /* IE9 Compat Modes */
-    src: local('Anonymous Pro'), local('AnonymousPro-Normal'),
-        url('//lib.baomitu.com/fonts/anonymous-pro/anonymous-pro-regular.eot?#iefix') format('embedded-opentype'),
-        /* IE6-IE8 */
-        url('//lib.baomitu.com/fonts/anonymous-pro/anonymous-pro-regular.woff2') format('woff2'),
-        /* Super Modern Browsers */
-        url('//lib.baomitu.com/fonts/anonymous-pro/anonymous-pro-regular.woff') format('woff'),
-        /* Modern Browsers */
-        url('//lib.baomitu.com/fonts/anonymous-pro/anonymous-pro-regular.ttf') format('truetype'),
-        /* Safari, Android, iOS */
-        url('//lib.baomitu.com/fonts/anonymous-pro/anonymous-pro-regular.svg#AnonymousPro') format('svg');
-    /* Legacy iOS */
+    font-family: 'Mi Lan Pro';
+    src: url('fonts/MiLanPro.ttf');
 }
 
 @keyframes fade-in {
@@ -268,14 +252,18 @@ h1 {
     word-break: normal;
     text-align: left;
     font-size: 1.1em;
-    font-family: 'Anonymous Pro';
     min-height: 57vh;
+    max-height: 57vh;
+    height: 100%;
     overflow-y: scroll;
     padding: 4px;
+    font-family: 'MI Lan Pro';
+    font-weight: 350;
 }
 
 #noteArea div {
-    font-family: 'Anonymous Pro';
+    font-family: 'MI Lan Pro';
+    font-weight: 350;
 }
 
 #noteArea:focus-visible {
