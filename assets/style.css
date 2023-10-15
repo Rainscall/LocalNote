@@ -44,11 +44,6 @@
     /* Legacy iOS */
 }
 
-@font-face {
-    font-family: 'Mi Lan Pro';
-    src: url('fonts/MiLanPro.ttf');
-}
-
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -257,13 +252,12 @@ h1 {
     height: 100%;
     overflow-y: scroll;
     padding: 4px;
-    font-family: 'MI Lan Pro';
-    font-weight: 350;
 }
 
+#noteArea,
 #noteArea div {
-    font-family: 'MI Lan Pro';
-    font-weight: 350;
+    font-family: 'MiSans';
+    font-weight: 450;
 }
 
 #noteArea:focus-visible {
