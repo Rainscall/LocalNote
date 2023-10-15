@@ -256,8 +256,8 @@ h1 {
 
 #noteArea,
 #noteArea div {
-    font-family: 'MiSans';
-    font-weight: 450;
+    font-family: 'MiSans Medium';
+    font-weight: 200;
 }
 
 #noteArea:focus-visible {
