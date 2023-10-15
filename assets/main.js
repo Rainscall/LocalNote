@@ -1,30 +1,10 @@
 const decryptKey = atob("SnFhM0VnZHNzVmxnTUhZS3RuOGM=");
 
-var ifFirstTimeChange = 0;
-
 // 创建一个观察器实例并传入回调函数
 var observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
         if (mutation.type == 'characterData' || mutation.type == 'childList') {
             saveToLS();
-            // 如果noteArea发生变动，清除旧的定时器并设置新的定时器
-            if (toastTimeout) clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(function () {
-                if (ifFirstTimeChange == 0) {
-                    ifFirstTimeChange += 1
-                    return;
-                }
-                Toastify({
-                    text: "note saved.",
-                    duration: 1200,
-                    className: "info",
-                    position: "center",
-                    gravity: "bottom",
-                    style: {
-                        background: "#414141",
-                    }
-                }).showToast();
-            }, 1500);
         }
     });
 });
@@ -62,6 +42,11 @@ document.addEventListener("keydown", function (e) {
 });
 
 function startUp() {
+    backgroundImageData = localStorage.getItem('background.image');
+    if (backgroundImageData) {
+        document.body.style.backgroundImage = 'url(\'' + backgroundImageData + '\')';
+    }
+
     var localNote = readFromLS();
     if (localNote) {
         noteArea.innerText = localNote;
@@ -306,4 +291,40 @@ function closeOverlay(elementID) {
 function changeTitleBar() {
     titleBar.innerText = noteNameInput.value;
     noteNameInput.value = '';
+}
+
+function selectBackground() {
+    const bgFileInput = document.getElementById('bgFileInput');
+    bgFileInput.click();
+}
+
+function setBackground() {
+    const file = bgFileInput.files[0];
+    const reader = new FileReader();
+
+    localStorage.removeItem('background.image');
+
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        const backgroundImage = reader.result;
+        document.body.style.backgroundImage = 'url(\'' + backgroundImage + '\')';
+        localStorage.setItem('background.image', backgroundImage);
+        closeOverlay('listBasePart');
+    };
+}
+
+function resetBackground() {
+    localStorage.removeItem('background.image');
+    document.body.style.backgroundImage = '';
+    closeOverlay('listBasePart');
+    Toastify({
+        text: "Background reset.",
+        duration: 1200,
+        className: "info",
+        position: "center",
+        gravity: "bottom",
+        style: {
+            background: "#414141",
+        }
+    }).showToast();
 }

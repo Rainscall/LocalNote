@@ -30,6 +30,19 @@
                         id="noteNameInput" class="keyInput nameInput">
                 </form>
             </div>
+            <div class="selectBackground noMargin">
+                <form class="noMargin">
+                    <div class="noMargin noPadding">
+                        <div class="noMargin" onclick="resetBackground()">
+                            <span>reset</span>
+                        </div>
+                        <div class="noMargin" onclick="selectBackground()">
+                            <span>select background</span>
+                        </div>
+                    </div>
+                    <input type="file" accept="image/*" id="bgFileInput" style="display: none;" onchange="setBackground();">
+                </form>
+            </div>
             <div class="childPart noPadding">
                 <h2>List:</h2>
             </div>
@@ -58,7 +71,8 @@
         <div class="mainPart">
             <div class="childPart" style="margin-bottom:0;">
                 <h1>
-                    <a href="/" style="color: #484848;word-break:break-all;word-wrap: break-word;" id="titleBar">LocalNote</a>
+                    <a href="/" style="color: #484848;word-break:break-all;word-wrap: break-word;"
+                        id="titleBar">LocalNote</a>
                 </h1>
             </div>
             <div class="childPart" style="min-height: 40px;">
@@ -78,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="chilePart noMargin">
+            <div class="childPart noMargin">
                 <div class="opBar">
                     <div class="opBar noMargin">
                         <a href="https://github.com/Rainscall/LocalNote" draggable="false" target="_blank">

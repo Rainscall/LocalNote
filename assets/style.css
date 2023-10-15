@@ -44,6 +44,18 @@
     /* Legacy iOS */
 }
 
+body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(2px);
+    background-size: cover;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -142,6 +154,11 @@
     max-width: 100vw;
     width: 100%;
     justify-content: center;
+}
+
+.basePart {
+    background-color: #ffffffdc;
+    min-height: 100vh;
 }
 
 .mainPart {
@@ -366,7 +383,7 @@ form {
 }
 
 .closeOverlayBar {
-    max-width: 512px;
+    max-width: calc(512px + 24px);
     width: calc(80vw + 24px);
     display: flex;
     flex-direction: row;
@@ -398,4 +415,56 @@ form {
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
+}
+
+.selectBackground>form>div {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.selectBackground>form>div>div:first-child {
+    margin-right: 16px;
+    background-color: #903c4b;
+    width: 15%;
+    min-width: 5em;
+}
+
+.selectBackground>form>div>div:first-child:hover {
+    animation: getDarkerRed 0.445s;
+    background-color: #840D23;
+}
+
+.selectBackground>form>div>div:first-child span {
+    color: #fff;
+    font-size: medium;
+}
+
+.selectBackground>form>div>div:last-child {
+    width: 85%;
+}
+
+.selectBackground>form>div div {
+    background-color: #ffffff7a;
+    padding: 8px 0 6px 0;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+    width: calc(80vw + 24px);
+    max-width: calc(512px + 24px);
+}
+
+.selectBackground>form>div>div>span {
+    text-align: center;
+    color: #757575;
+    font-size: smaller;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+.selectBackground {
+    max-width: 536px;
+    width: calc(80vw + 24px);
+    margin: 12px;
 }
