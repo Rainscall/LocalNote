@@ -18,6 +18,12 @@ observer.observe(noteArea, config);
 // 初始化定时器变量
 var toastTimeout;
 
+//监听页面失焦后重新聚焦，并重新读取localstorage
+document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) {
+        startUp(1);
+    }
+})
 
 noteArea.addEventListener('paste', function (e) {
     e.preventDefault(); // 阻止默认行为，即阻止将粘贴的内容插入到div中
@@ -41,7 +47,10 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
-function startUp() {
+function startUp(isQuiet) {
+    if (!isQuiet) {
+        isQuiet = 0;
+    }
     const diskSpace = document.getElementById('diskSpace');
 
     backgroundImageData = localStorage.getItem('background.image');
@@ -56,30 +65,34 @@ function startUp() {
     var localNote = readFromLS();
     if (localNote) {
         noteArea.innerText = localNote;
-        Toastify({
-            text: "Note loaded.",
-            duration: 1200,
-            className: "info",
-            position: "center",
-            gravity: "bottom",
-            style: {
-                background: "#414141",
-            }
-        }).showToast();
+        if (isQuiet == 0) {
+            Toastify({
+                text: "Note loaded.",
+                duration: 1200,
+                className: "info",
+                position: "center",
+                gravity: "bottom",
+                style: {
+                    background: "#414141",
+                }
+            }).showToast();
+        }
         return;
     } else {
         noteArea.innerText = '';
-        Toastify({
-            text: "New note created.",
-            duration: 1200,
-            className: "info",
-            position: "center",
-            gravity: "bottom",
-            style: {
-                background: "#414141",
-            }
-        }).showToast();
-        return;
+        if (isQuiet == 0) {
+            Toastify({
+                text: "New note created.",
+                duration: 1200,
+                className: "info",
+                position: "center",
+                gravity: "bottom",
+                style: {
+                    background: "#414141",
+                }
+            }).showToast();
+            return;
+        }
     }
 }
 
@@ -137,7 +150,6 @@ function saveToLS() {
 
 function readFromLS() {
     let noteKey = 'note.' + titleBar.innerText;
-    console.log(noteKey);
     if (noteKey == 'note.') { //判断是否为空
         noteKey = "note.LocalNote";
     }
@@ -161,6 +173,12 @@ function removeFromLS(noteKey) {
     }).showToast();
 
     openMenuPage();
+
+    //判断被删除的项是否是当前打开的项目，如果是则切换回LocalNote默认项
+    if ('note.' + titleBar.innerText == noteKey) {
+        titleBar.innerText = 'LocalNote';
+        readFromLS(); startUp();
+    }
 }
 
 function triggerButtonById(buttonId) {
@@ -313,9 +331,9 @@ function setBackground() {
     const reader = new FileReader();
     const selectBackgroundText = document.getElementById('selectBackgroundText');
 
-    if (file.size > 1024 * 1024 * 1) {
+    if (file.size > 1024 * 1024 * 1.5) {
         Toastify({
-            text: "Image is too big.\nMax:1m",
+            text: "Image is too big.\nMax:1.5m",
             duration: 2000,
             className: "info",
             position: "center",
@@ -390,7 +408,6 @@ function getBrowserStorageLimit() {
         maxSize = "2.5";
     }
 
-    console.log(browser);
     return maxSize;
 }
 
