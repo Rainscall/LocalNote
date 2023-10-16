@@ -48,9 +48,10 @@
 body {
     background-repeat: no-repeat;
     background-attachment: fixed;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     background-size: cover;
+    background-position: center;
 }
 
 body::-webkit-scrollbar {
@@ -160,17 +161,21 @@ body::-webkit-scrollbar {
 
 .listBasePart,
 .basePart {
+    min-height: 100vh;
     display: flex;
     max-width: 100vw;
     width: 100%;
     justify-content: center;
 }
 
+.listBasePart>div {
+    margin: 15vh 0 15vh 0;
+}
+
 .basePart {
     background-color: #ffffffdc;
     min-height: 100vh;
     min-height: 100svh;
-
 }
 
 .mainPart {
@@ -359,6 +364,10 @@ h1 {
     flex-direction: row;
 }
 
+#titleBar {
+    color: #484848;
+}
+
 form {
     background-color: transparent;
 }
@@ -470,6 +479,9 @@ form {
     cursor: pointer;
     width: calc(80vw + 24px);
     max-width: calc(512px + 24px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* 重置背景按钮里面的字 */
@@ -497,4 +509,57 @@ form {
 
 .selectBackground>form>div :last-child {
     width: auto;
+}
+
+#openMenuPage {
+    color: #777777;
+}
+
+#closeOverlay {
+    color: #777777;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .basePart {
+        background-color: #1f1f1fba;
+    }
+
+    .originInput {
+        background-color: #00000042;
+        box-shadow: none;
+        color: #fff;
+        animation: none;
+    }
+
+    .originInput:hover {
+        animation: none;
+        box-shadow: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    #titleBar {
+        color: #fff;
+    }
+
+    .listBasePart {
+        background-color: #2d2d2d;
+    }
+
+    #openMenuPage {
+        color: #ffffff;
+    }
+
+    .listTable :last-child>span {
+        color: #aeaeae;
+    }
+
+    #closeOverlay {
+        color: #fff;
+    }
+    #noteNameInput::placeholder {
+        color: #d8d8d8;
+    }
 }

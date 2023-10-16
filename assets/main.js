@@ -51,7 +51,7 @@ function startUp() {
         selectBackgroundText.parentNode.parentNode.style.backgroundImage = 'url(\'' + backgroundImageData + '\')';
     }
 
-    diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
+    diskSpace.innerText = (getLocalStorageUsage() / 1024 / 1024).toFixed(4) + '/' + (getBrowserStorageLimit());
 
     var localNote = readFromLS();
     if (localNote) {
@@ -214,13 +214,14 @@ function copyInnerText(id) {
 function openMenuPage() {
     const listBasePart = document.getElementById("listBasePart");
     const listTable = document.getElementById("listTable");
+    const basePart = document.getElementById('basePart');
 
     var itemCounter = 0;
-
     listTable.innerHTML = "";
     listBasePart.style.display = "flex";
+    basePart.style.maxHeight = '100svh';//强制将basePart的最大高度设置为100svh
 
-    diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
+    diskSpace.innerText = (getLocalStorageUsage() / 1024 / 1024).toFixed(4) + '/' + (getBrowserStorageLimit());
 
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
@@ -294,11 +295,12 @@ function openNote(noteKey) {
 
 function closeOverlay(elementID) {
     document.getElementById(elementID).style.display = "none";
+    basePart.setAttribute('style', '')
 }
 
 function changeTitleBar() {
     titleBar.innerText = noteNameInput.value;
-    noteNameInput.value = '';
+    basePart.style.maxHeight = 'auto';//将basePart的内联样式清除
 }
 
 function selectBackground() {
@@ -335,7 +337,7 @@ function setBackground() {
         selectBackgroundText.parentNode.parentNode.style.backgroundImage = 'url(\'' + backgroundImage + '\')';
         localStorage.setItem('background.fileName', file.name);
         localStorage.setItem('background.image', backgroundImage);
-        diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
+        diskSpace.innerText = (getLocalStorageUsage() / 1024 / 1024).toFixed(4) + '/' + (getBrowserStorageLimit());
         // closeOverlay('listBasePart');
     };
 }
@@ -345,7 +347,7 @@ function resetBackground() {
     localStorage.removeItem('background.fileName');
     localStorage.removeItem('background.image');
     selectBackgroundText.parentNode.parentNode.style.backgroundImage = '';
-    diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
+    diskSpace.innerText = (getLocalStorageUsage() / 1024 / 1024).toFixed(4) + '/' + (getBrowserStorageLimit());
     document.body.style.backgroundImage = '';
     closeOverlay('listBasePart');
     Toastify({
@@ -373,7 +375,7 @@ function getBrowserStorageLimit() {
         maxSize = "2.5";
     } else if (ua.indexOf("Firefox") > -1) {
         browser = "Firefox";
-        maxSize = "10";
+        maxSize = "5";
     } else if (ua.indexOf("Edge") > -1) {
         browser = "Edge";
         maxSize = "5";
