@@ -101,6 +101,14 @@ body::-webkit-scrollbar {
     background-color: #dddddd59;
 }
 
+.diskSpace {
+    text-align: center;
+}
+
+.listTable :last-child>span {
+    color: #757575;
+}
+
 .listTable .itemDivFather {
     margin: 8px;
     background-color: #cecdcd59;
@@ -444,8 +452,14 @@ form {
     font-size: medium;
 }
 
+/* 选择图片按钮，兼图片位置 */
 .selectBackground>form>div>div:last-child {
     width: 85%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+    padding: 0;
 }
 
 .selectBackground>form>div div {
@@ -458,6 +472,7 @@ form {
     max-width: calc(512px + 24px);
 }
 
+/* 重置背景按钮里面的字 */
 .selectBackground>form>div>div>span {
     text-align: center;
     color: #757575;
@@ -466,9 +481,20 @@ form {
     user-select: none;
 }
 
+#selectBackgroundText {
+    padding: 4px;
+    padding-bottom: 1px;
+    border-radius: 8px;
+    max-height: 30px;
+}
+
 
 .selectBackground {
     max-width: 536px;
     width: calc(80vw + 24px);
     margin: 12px;
+}
+
+.selectBackground>form>div :last-child {
+    width: auto;
 }

@@ -42,10 +42,16 @@ document.addEventListener("keydown", function (e) {
 });
 
 function startUp() {
+    const diskSpace = document.getElementById('diskSpace');
+
     backgroundImageData = localStorage.getItem('background.image');
     if (backgroundImageData) {
+        selectBackgroundText.innerText = localStorage.getItem('background.fileName');
         document.body.style.backgroundImage = 'url(\'' + backgroundImageData + '\')';
+        selectBackgroundText.parentNode.parentNode.style.backgroundImage = 'url(\'' + backgroundImageData + '\')';
     }
+
+    diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
 
     var localNote = readFromLS();
     if (localNote) {
@@ -301,20 +307,43 @@ function selectBackground() {
 function setBackground() {
     const file = bgFileInput.files[0];
     const reader = new FileReader();
+    const selectBackgroundText = document.getElementById('selectBackgroundText');
 
+    if (file.size > 1024 * 1024 * 1) {
+        Toastify({
+            text: "Image is too big.\nMax:1m",
+            duration: 2000,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+                textAlign: "center",
+            }
+        }).showToast();
+        bgFileInput.files = void 114514;
+        return;
+    }
     localStorage.removeItem('background.image');
-
+    selectBackgroundText.innerText = file.name;
     reader.readAsDataURL(file);
     reader.onload = function () {
         const backgroundImage = reader.result;
         document.body.style.backgroundImage = 'url(\'' + backgroundImage + '\')';
+        selectBackgroundText.parentNode.parentNode.style.backgroundImage = 'url(\'' + backgroundImage + '\')';
+        localStorage.setItem('background.fileName', file.name);
         localStorage.setItem('background.image', backgroundImage);
-        closeOverlay('listBasePart');
+        diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
+        // closeOverlay('listBasePart');
     };
 }
 
 function resetBackground() {
+    selectBackgroundText.innerText = 'select background';
+    localStorage.removeItem('background.fileName');
     localStorage.removeItem('background.image');
+    selectBackgroundText.parentNode.parentNode.style.backgroundImage = '';
+    diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
     document.body.style.backgroundImage = '';
     closeOverlay('listBasePart');
     Toastify({
@@ -327,4 +356,46 @@ function resetBackground() {
             background: "#414141",
         }
     }).showToast();
+}
+
+function getBrowserStorageLimit() {
+    var ua = navigator.userAgent;
+    var browser;
+    var maxSize;
+
+    if (ua.indexOf("Chrome") > -1) {
+        browser = "Chrome";
+        maxSize = "5";
+    } else if (ua.indexOf("Safari") > -1) {
+        browser = "Safari";
+        maxSize = "2.5";
+    } else if (ua.indexOf("Firefox") > -1) {
+        browser = "Firefox";
+        maxSize = "10";
+    } else if (ua.indexOf("Edge") > -1) {
+        browser = "Edge";
+        maxSize = "5";
+    } else if (ua.indexOf("MSIE") > -1 || ua.indexOf("Trident/") > -1) {
+        browser = "IE";
+        maxSize = "10";
+    } else if (ua.indexOf("MicroMessenger") > -1) {
+        browser = "WeChat";
+        maxSize = "2.5";
+    } else {
+        browser = "Unknown Browser";
+        maxSize = "2.5";
+    }
+
+    console.log(browser);
+    return maxSize;
+}
+
+function getLocalStorageUsage() {
+    let totalLength = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+        const getLocalStorageUsageKey = localStorage.key(i);
+        const getLocalStorageUsageValue = localStorage.getItem(getLocalStorageUsageKey);
+        totalLength += getLocalStorageUsageKey.length + getLocalStorageUsageValue.length;
+    }
+    return totalLength;
 }

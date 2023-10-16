@@ -36,18 +36,29 @@
                         <div class="noMargin" onclick="resetBackground()">
                             <span>reset</span>
                         </div>
-                        <div class="noMargin" onclick="selectBackground()">
-                            <span>select background</span>
+                        <div class="noMargin" onclick="selectBackground()" style="background-color: transparent;">
+                            <div class="noMargin noPadding">
+                                <span id="selectBackgroundText">select background</span>
+                            </div>
                         </div>
                     </div>
-                    <input type="file" accept="image/*" id="bgFileInput" style="display: none;" onchange="setBackground();">
+
+                    <input type="file" accept="image/*" id="bgFileInput" style="display: none;"
+                        onchange="setBackground();">
                 </form>
             </div>
             <div class="childPart noPadding">
                 <h2>List:</h2>
             </div>
-            <div class="childPart listTable" id="listTable">
+            <div class="childPart listTable" style="padding-bottom: calc(12px - 1ex);">
+                <div id="listTable">
 
+                </div>
+                <div class="diskSpace">
+                    <span>storage space: <span id="diskSpace"></span>m</span>
+                </div>
+            </div>
+            <div>
             </div>
             <div class="closeOverlayBar">
                 <div>
