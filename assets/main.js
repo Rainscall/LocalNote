@@ -220,6 +220,8 @@ function openMenuPage() {
     listTable.innerHTML = "";
     listBasePart.style.display = "flex";
 
+    diskSpace.innerText =(getLocalStorageUsage() /1024 /1024).toFixed(4) + '/' + (getBrowserStorageLimit());
+
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.startsWith("note.")) {
