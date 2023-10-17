@@ -471,6 +471,7 @@ form {
     padding: 0;
 }
 
+.exportNote>form>div div,
 .selectBackground>form>div div {
     background-color: #ffffff7a;
     padding: 8px 0 6px 0;
@@ -482,6 +483,11 @@ form {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.exportNote>form>div div {
+    max-width: calc((512px + 24px)/2);
+    width: calc((80vw + 24px)/2);
 }
 
 /* 重置背景按钮里面的字 */
@@ -500,11 +506,40 @@ form {
     max-height: 30px;
 }
 
+.exportNoteText {
+    font-size: smaller;
+    color: #757575;
+    user-select: none;
+}
 
+.exportNote,
 .selectBackground {
     max-width: 536px;
     width: calc(80vw + 24px);
     margin: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.exportNote>form>div div>div {
+    background-color: #cecdcd59;
+}
+
+.exportNote>form>div div>div:hover {
+    animation: getDarker 0.245s;
+    background-color: #cecdcdb7;
+}
+
+.exportNote>form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.exportNote>form>div {
+    margin-right: 8px;
 }
 
 .selectBackground>form>div :last-child {
@@ -559,6 +594,7 @@ form {
     #closeOverlay {
         color: #fff;
     }
+
     #noteNameInput::placeholder {
         color: #d8d8d8;
     }

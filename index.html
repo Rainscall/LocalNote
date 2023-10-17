@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0">
     <link rel="preconnect" href="https://cdn.staticfile.org" />
     <link rel="preconnect" href="https://lib.baomitu.com" />
     <meta name="google" content="notranslate">
@@ -45,6 +45,25 @@
                     <input type="file" accept="image/*" id="bgFileInput" style="display: none;"
                         onchange="setBackground();">
                 </form>
+            </div>
+            <div class="exportNote noMargin">
+                <form class="noMargin">
+                    <div class="noMargin noPadding">
+                        <div class="noMargin" onclick="exportNote()" style="background-color: transparent;">
+                            <div class="noMargin noPadding" class="exImportButtom">
+                                <span class="exportNoteText">Export note</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="noMargin noPadding">
+                        <div class="noMargin" onclick="importNote()" style="background-color: transparent;">
+                            <div class="noMargin noPadding" class="exImportButtom">
+                                <span class="exportNoteText">Import note</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <input style="display: none;" type="file" id="importNoteInput" accept=".txt" onchange="importNoteStart()">
             </div>
             <div class="childPart noPadding">
                 <h2>List:</h2>

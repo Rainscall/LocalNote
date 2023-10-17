@@ -420,3 +420,87 @@ function getLocalStorageUsage() {
     }
     return totalLength;
 }
+
+function createTxtFileAndDownload(fileName, fileContent) {
+    // 创建一个新的 Blob 对象，将文件内容存储在其中
+    const blob = new Blob([fileContent], { type: 'text/plain' });
+
+    // 创建一个 <a> 元素，用于下载文件
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+    // 模拟用户点击下载链接
+    a.click();
+
+    // 释放 Blob 对象
+    URL.revokeObjectURL(a.href);
+}
+
+function exportNoteToJson() {
+    const notes = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+
+        if (key && key.startsWith("note.")) {
+            const noteContent = localStorage.getItem(key);
+            notes[key] = noteContent;
+        }
+    }
+
+    return notes;
+}
+
+function exportNote() {
+    timeNow = Date.parse(new Date()).toString(16);
+    fileName = 'Note backup_' + timeNow + '.txt';
+    createTxtFileAndDownload(fileName, JSON.stringify(exportNoteToJson()));
+}
+
+function importNote() {
+    const importNoteInput = document.getElementById('importNoteInput');
+    importNoteInput.click();
+}
+
+function importNoteStart() {
+    const file = importNoteInput.files[0];
+    const reader = new FileReader();
+
+    reader.readAsText(file);
+    reader.onload = function () {
+        importToLocalStorage(reader.result);
+        openMenuPage();
+        startUp();
+    };
+}
+
+function importToLocalStorage(jsonString) {
+    try {
+        const jsonObject = JSON.parse(jsonString);
+        for (const [key, value] of Object.entries(jsonObject)) {
+            localStorage.setItem(key, value);
+        }
+    } catch (error) {
+        Toastify({
+            text: "Import failed.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+        return;
+    }
+    Toastify({
+        text: "Import success.",
+        duration: 1200,
+        className: "info",
+        position: "center",
+        gravity: "bottom",
+        style: {
+            background: "#414141",
+        }
+    }).showToast();
+}
