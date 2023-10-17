@@ -146,6 +146,8 @@ function saveToLS() {
     }
     const noteArea = document.getElementById('noteArea');
     localStorage.setItem(noteKey, encryptAES256(noteArea.innerText, decryptKey));
+    let currentTimeStamp = Date.parse(new Date()).toString(10);
+    localStorage.setItem('timeStamp.' + noteKey, encryptAES256(currentTimeStamp, decryptKey));
 }
 
 function readFromLS() {
@@ -157,6 +159,13 @@ function readFromLS() {
         return;
     }
     return decryptAES256(localStorage.getItem(noteKey), decryptKey);
+}
+
+function readTimeStampFromLS(tsKey) {
+    if (!tsKey) {
+        return;
+    }
+    return decryptAES256(localStorage.getItem(tsKey), decryptKey);
 }
 
 function removeFromLS(noteKey) {
@@ -247,22 +256,29 @@ function openMenuPage() {
             let itemDivFather = document.createElement("div");
             let itemDiv = document.createElement("div");
             let delButtom = document.createElement("div");
+            let timeStampSpan = '';
 
-            delButtom.className = "delButtom";
-            delButtom.innerText = "";
+            if (key.startsWith("note.")) {
+                delButtom.className = "delButtom";
+                delButtom.innerText = "";
 
-            itemDiv.setAttribute("onclick", "openNote(\"" + key + "\")");
-            itemDiv.innerText = key.slice(5);
-            delButtom.setAttribute("onclick", "removeFromLS(\"" + key + "\")");
+                itemDiv.setAttribute("onclick", "openNote(\"" + key + "\")");
 
+                //读取上次打开时间并设置
+                if (localStorage.getItem('timeStamp.' + key)) {
+                    timeStampSpan = timeStampToDate(readTimeStampFromLS('timeStamp.' + key));
+                } else {
+                    timeStampSpan = 'Unknown';
+                }
+                itemDiv.innerHTML = key.slice(5) + '<span class=\'timeStampSpan\'>' + timeStampSpan + '</span>'
+                delButtom.setAttribute("onclick", "removeFromLS(\"" + key + "\")");
 
-            itemDivFather.className = "itemDivFather";
-            itemDivFather.appendChild(itemDiv);
-            itemDivFather.appendChild(delButtom);
-
-            listTable.appendChild(itemDivFather);
-
-            itemCounter = itemCounter + 1
+                itemDivFather.className = "itemDivFather";
+                itemDivFather.appendChild(itemDiv);
+                itemDivFather.appendChild(delButtom);
+                listTable.appendChild(itemDivFather);
+                itemCounter = itemCounter + 1
+            }
         }
 
     }
@@ -503,4 +519,16 @@ function importToLocalStorage(jsonString) {
             background: "#414141",
         }
     }).showToast();
+}
+
+function timeStampToDate(timeStamp) {
+    timeStamp = timeStamp / 1;//转换类型
+    var date = new Date(timeStamp);
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
 }
