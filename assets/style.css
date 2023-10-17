@@ -486,8 +486,8 @@ form {
 }
 
 .exportNote>form>div div {
-    max-width: calc((512px + 24px)/2);
-    width: calc((80vw + 24px)/2);
+    max-width: calc(((80vw + 16px)/2));
+    width: calc((512px + 8px)/2);
 }
 
 /* 重置背景按钮里面的字 */
@@ -536,10 +536,6 @@ form {
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
-}
-
-.exportNote>form>div {
-    margin-right: 8px;
 }
 
 .selectBackground>form>div :last-child {
