@@ -8,6 +8,7 @@ var observer = new MutationObserver(function (mutations) {
             if (isFirstChange != 0) {//判断是否是第一次修改以识别是刚刚读取还是读取后修改
                 saveToLS();
             } else {
+                isFirstChange += 1;
                 return;
             }
         }
