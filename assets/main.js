@@ -176,6 +176,7 @@ function readTimeStampFromLS(tsKey) {
 
 function removeFromLS(noteKey) {
     localStorage.removeItem(noteKey);
+    localStorage.removeItem('timeStamp.' + noteKey);
     Toastify({
         text: "note removed.",
         duration: 1200,
