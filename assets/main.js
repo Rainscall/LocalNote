@@ -1,10 +1,16 @@
 const decryptKey = atob("SnFhM0VnZHNzVmxnTUhZS3RuOGM=");
 
+var isFirstChange = 0;
 // 创建一个观察器实例并传入回调函数
 var observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
         if (mutation.type == 'characterData' || mutation.type == 'childList') {
-            saveToLS();
+            if (isFirstChange != 0) {//判断是否是第一次修改以识别是刚刚读取还是读取后修改
+                saveToLS();
+            } else {
+                console.log('114514');
+                return;
+            }
         }
     });
 });
@@ -292,6 +298,7 @@ function openMenuPage() {
 
 function openNote(noteKey) {
     const titleBar = document.getElementById('titleBar');
+    isFirstChange = 0;
 
     closeOverlay('listBasePart');
 
@@ -359,7 +366,7 @@ function setBackground() {
                 textAlign: "center",
             }
         }).showToast();
-        bgFileInput.files = void 114514;
+        bgFileInput.value = '';
         return;
     }
     localStorage.removeItem('background.image');
@@ -487,6 +494,7 @@ function importNoteStart() {
         importToLocalStorage(reader.result);
         openMenuPage();
         startUp();
+        importNoteInput.value = '';
     };
 }
 
