@@ -68,6 +68,12 @@ function startUp(isQuiet) {
 
     diskSpace.innerText = (getLocalStorageUsage() / 1024 / 1024).toFixed(4) + '/' + (getBrowserStorageLimit());
 
+    lastTime = localStorage.getItem('lastTime');
+    if (lastTime) {
+        openNote(lastTime, 1);
+        return;
+    }
+
     var localNote = readFromLS();
     if (localNote) {
         noteArea.innerText = localNote;
@@ -297,7 +303,10 @@ function openMenuPage() {
     }
 }
 
-function openNote(noteKey) {
+function openNote(noteKey, isQuiet) {
+    if (!isQuiet) {
+        isQuiet = 0;
+    }
     const titleBar = document.getElementById('titleBar');
     isFirstChange = 0;
 
@@ -308,30 +317,36 @@ function openNote(noteKey) {
     if (localNote) {
         noteArea.innerText = localNote;
         titleBar.innerText = noteKey.slice(5);
-        Toastify({
-            text: "Note loaded.",
-            duration: 1200,
-            className: "info",
-            position: "center",
-            gravity: "bottom",
-            style: {
-                background: "#414141",
-            }
-        }).showToast();
+        localStorage.setItem('lastTime', noteKey);
+        if (isQuiet == 0) {
+            Toastify({
+                text: "Note loaded.",
+                duration: 1200,
+                className: "info",
+                position: "center",
+                gravity: "bottom",
+                style: {
+                    background: "#414141",
+                }
+            }).showToast();
+        }
         return;
     } else {
         noteArea.innerText = '';
         titleBar.innerText = 'LocalNote'
-        Toastify({
-            text: "Note loaded.",
-            duration: 1200,
-            className: "info",
-            position: "center",
-            gravity: "bottom",
-            style: {
-                background: "#414141",
-            }
-        }).showToast();
+        localStorage.setItem('lastTime', 'LocalNote');
+        if (isQuiet == 0) {
+            Toastify({
+                text: "Note loaded.",
+                duration: 1200,
+                className: "info",
+                position: "center",
+                gravity: "bottom",
+                style: {
+                    background: "#414141",
+                }
+            }).showToast();
+        }
     }
 }
 
