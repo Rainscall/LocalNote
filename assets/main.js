@@ -6,8 +6,6 @@ var observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
         if (mutation.type == 'characterData' || mutation.type == 'childList') {
             if (isFirstChange != 0) {//判断是否是第一次修改以识别是刚刚读取还是读取后修改
-                let noteKey = 'note.' + noteNameInput.value;
-                localStorage.setItem('lastTime', noteKey);
                 saveToLS();
             } else {
                 isFirstChange += 1;
@@ -170,6 +168,7 @@ function saveToLS() {
     if (noteKey == 'note.') {//判断是否为空
         noteKey = "note.LocalNote";
     }
+    localStorage.setItem('lastTime', noteKey);
     const noteArea = document.getElementById('noteArea');
     localStorage.setItem(noteKey, encryptAES256(noteArea.innerText, decryptKey));
     let currentTimeStamp = Date.parse(new Date()).toString(10);
