@@ -6,6 +6,8 @@ var observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
         if (mutation.type == 'characterData' || mutation.type == 'childList') {
             if (isFirstChange != 0) {//判断是否是第一次修改以识别是刚刚读取还是读取后修改
+                let noteKey = 'note.' + noteNameInput.value;
+                localStorage.setItem('lastTime', noteKey);
                 saveToLS();
             } else {
                 isFirstChange += 1;
@@ -52,6 +54,18 @@ document.addEventListener("keydown", function (e) {
         }).showToast();
     }
 });
+
+function createNewNote() {
+    let noteKey = 'note.' + noteNameInput.value;
+    if (localStorage.getItem(noteKey)) {
+        openNote(noteKey);
+        return;
+    }
+    changeTitleBar();
+    diskSpace.innerText = (getLocalStorageUsage() / 1024 / 1024).toFixed(4) + '/' + (getBrowserStorageLimit());
+    noteArea.innerText = '';
+    closeOverlay('listBasePart');
+}
 
 function startUp(isQuiet) {
     if (!isQuiet) {
@@ -199,6 +213,7 @@ function removeFromLS(noteKey) {
     //判断被删除的项是否是当前打开的项目，如果是则切换回LocalNote默认项
     if ('note.' + titleBar.innerText == noteKey) {
         titleBar.innerText = 'LocalNote';
+        localStorage.removeItem('lastTime');
         readFromLS(); startUp();
     }
 }
