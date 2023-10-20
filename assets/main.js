@@ -129,20 +129,13 @@ function decryptAES256(ciphertext, key) {
     return plaintext;
 }
 
-var resetKeyCilckTimes = 0;
-function resetKey() {
-    const resetKeyText = document.getElementById('resetKeyText');
-    if (resetKeyCilckTimes == 0) {
-        resetKeyCilckTimes += 1;
-        resetKeyText.innerHTML = '<span style="color:#fff;";>confirm</span>';
-        // Set a timeout to reset the click times after few seconds
-        setTimeout(function () {
-            resetKeyCilckTimes = 0;
-            resetKeyText.innerText = 'reset';
-        }, 1700);
-        return;
-    }
+function openResetKeyMenu(){
+    const warnInfo = document.getElementById('warnInfo');
+    warnInfo.style.display = "flex";
+    console.log('114514');
+}
 
+function resetKey() {
     noteNameInput.value = '';
     titleBar.innerText = 'LocalNote';
     localStorage.clear();
@@ -157,8 +150,10 @@ function resetKey() {
         }
     }).showToast();
     noteArea.innerText = "";
-    resetKeyCilckTimes = 0;
-    resetKeyText.innerText = 'reset';
+    document.body.style.backgroundImage = 'none';
+    selectBackgroundText.parentNode.parentNode.style.backgroundImage = 'none';
+    selectBackgroundText.innerText = 'select background';
+    closeOverlay('warnInfo');
     openMenuPage();
 }
 

@@ -78,6 +78,10 @@ body::-webkit-scrollbar {
     }
 }
 
+#listBasePart {
+    z-index: 900;
+}
+
 .listBasePart {
     min-height: 100vh;
     min-height: 100svh;
@@ -554,6 +558,82 @@ form {
     font-size: x-small;
     color: #777777;
     margin-left: 1em;
+}
+
+
+
+@keyframes warnInfoButtomHoverIn {
+    from {
+        box-shadow: 0 0 20px 5px #b7b7b761;
+    }
+
+    to {
+        box-shadow: none;
+    }
+}
+
+@keyframes warnInfoButtomHoverOut {
+    from {
+        box-shadow: none;
+    }
+
+    to {
+        box-shadow: 0 0 20px 5px #b7b7b761;
+    }
+}
+
+
+.warnInfoButtomArea{
+    display: flex;
+    width: 80vw;
+    max-width: calc(512px + 12px);
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+#warnInfo {
+    background-color: #840D23;
+    z-index: 1000;
+}
+
+#warnInfo p,
+#warnInfo h1 {
+    color: #fff;
+}
+
+#warnInfo p {
+    margin-top: 0.4em;
+}
+
+.warnInfoButtom{
+    margin-right: 8px;
+    padding: 12px;
+    padding-bottom: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+    border-radius: 24px;
+    animation: warnInfoButtomHoverIn 0.245s;
+}
+
+.warnInfoButtom:hover{
+    animation: warnInfoButtomHoverOut 0.245s;
+    box-shadow: 0 0 20px 5px #b7b7b761;
+}
+
+.warnInfoButtom span {
+    color: #000;
+    user-select: none;
+}
+
+#warnInfoYes {
+    width: fit-content;
+    min-width: 3em;
+    text-align: center;
+}
+
+#warnInfoNo {
+    width: 100%;
+    text-align: center;
 }
 
 @media screen and (prefers-color-scheme: dark) {

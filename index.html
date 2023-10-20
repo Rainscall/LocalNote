@@ -18,6 +18,27 @@
 
 <body onload="startUp();">
 
+    <div class="listBasePart" id="warnInfo" style="display: none;">
+        <div class="mainPart">
+            <div class="childPart">
+                <h1>Reset localstorage?</h1>
+                <p>It will destory all of your data.</p>
+            </div>
+            <div class="warnInfoButtomArea">
+                <div class="warnInfoButtom" id="warnInfoYes"  onclick="resetKey();">
+                    <div>
+                        <span>Yes</span>
+                    </div>
+                </div>
+                <div class="warnInfoButtom" id="warnInfoNo"  onclick="closeOverlay('warnInfo')">
+                    <div>
+                        <span>No</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="listBasePart" id="listBasePart" style="display: none;">
         <div class="mainPart">
             <div class="childPart noPadding">
@@ -63,7 +84,8 @@
                         </div>
                     </div>
                 </form>
-                <input style="display: none;" type="file" id="importNoteInput" accept=".txt" onchange="importNoteStart()">
+                <input style="display: none;" type="file" id="importNoteInput" accept=".txt"
+                    onchange="importNoteStart()">
             </div>
             <div class="childPart noPadding">
                 <h2>List:</h2>
@@ -81,7 +103,7 @@
             <div class="closeOverlayBar">
                 <div>
                     <div class="resetButtom">
-                        <a style="color: #777777;" onclick="resetKey();" href="javascript:void(0);">
+                        <a style="color: #777777;" onclick="openResetKeyMenu();" href="javascript:void(0);">
                             <span id="resetKeyText">reset</span>
                         </a>
                     </div>
