@@ -1,5 +1,3 @@
-const decryptKey = atob("SnFhM0VnZHNzVmxnTUhZS3RuOGM=");
-
 var isFirstChange = 0;
 // 创建一个观察器实例并传入回调函数
 var observer = new MutationObserver(function (mutations) {
@@ -65,6 +63,73 @@ function createNewNote() {
     closeOverlay('listBasePart');
 }
 
+var passwordInputAction = 'login';
+function auth() {
+    let decryptKeyHash = localStorage.getItem('decryptKeyHash');
+    const getPassword = document.getElementById('getPassword');
+    if (!decryptKeyHash) {
+        passwordInputAction = 'signUp';
+    } else {
+        passwordInputAction = 'login';
+    }
+    getPassword.style.display = 'flex';
+}
+
+var decryptKey = 0;
+function passwordInput() {
+    let decryptKeyHash = localStorage.getItem('decryptKeyHash');
+    const passwordInput = document.getElementById('passwordInput');
+
+    if (!passwordInput.value) {
+        Toastify({
+            text: "Input something please?",
+            duration: 1500,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+        return;
+    }
+
+    let tempDecryptKeyHash = getSHA3(passwordInput.value);
+
+    if (passwordInputAction == 'signUp') {
+        localStorage.setItem('decryptKeyHash', tempDecryptKeyHash);
+        Toastify({
+            text: "Password set.",
+            duration: 3500,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+        startUp();
+    } else {
+        if (tempDecryptKeyHash != decryptKeyHash) {
+            Toastify({
+                text: "Wrong password.",
+                duration: 3500,
+                className: "info",
+                position: "center",
+                gravity: "bottom",
+                style: {
+                    background: "#414141",
+                }
+            }).showToast();
+            return;
+        }
+    }
+    decryptKey = passwordInput.value;
+    startUp();
+    passwordInput.value = '';
+    closeOverlay('getPassword');
+}
+
 function startUp(isQuiet) {
     if (!isQuiet) {
         isQuiet = 0;
@@ -120,6 +185,11 @@ function startUp(isQuiet) {
     }
 }
 
+function getSHA3(massage) {
+    const result = CryptoJS.SHA3(massage).toString();
+    return result;
+}
+
 function encryptAES256(plaintext, key) {
     const ciphertext = CryptoJS.AES.encrypt(plaintext, key).toString();
     return ciphertext;
@@ -129,7 +199,7 @@ function decryptAES256(ciphertext, key) {
     return plaintext;
 }
 
-function openResetKeyMenu(){
+function openResetKeyMenu() {
     const warnInfo = document.getElementById('warnInfo');
     warnInfo.style.display = "flex";
     console.log('114514');

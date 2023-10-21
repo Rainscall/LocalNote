@@ -16,7 +16,32 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body onload="startUp();">
+<body onload="auth();">
+
+    <div class="listBasePart" id="getPassword" style="display: none;">
+        <div class="mainPart">
+            <div class="childPart">
+                <h1>Password?</h1>
+                <p>Your have to use a key to protect your data.<br>Password for the old version is Jqa3EgdssVlgMHYKtn8c</p>
+            </div>
+            <div class="warnInfoButtomArea" style="display: flex;flex-direction: column;flex-wrap: wrap;">
+                <div class="warnInfoButtom" style="width: 100%;">
+                    <div>
+                        <form action="javascript:passwordInput()">
+                            <input required maxlength="32" placeholder="Password here" type="password" name="passwordInput" id="passwordInput">
+                        </form>
+                    </div>
+                </div>
+                <div class="warnInfoButtom" id="forgetPasswordButtom" onclick="openResetKeyMenu();">
+                    <div>
+                        <a>
+                            <span>Reset localstorage</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="listBasePart" id="warnInfo" style="display: none;">
         <div class="mainPart">
@@ -25,12 +50,12 @@
                 <p>It will destory all of your data.</p>
             </div>
             <div class="warnInfoButtomArea">
-                <div class="warnInfoButtom" id="warnInfoYes"  onclick="resetKey();">
+                <div class="warnInfoButtom" id="warnInfoYes" onclick="resetKey();">
                     <div>
                         <span>Yes</span>
                     </div>
                 </div>
-                <div class="warnInfoButtom" id="warnInfoNo"  onclick="closeOverlay('warnInfo')">
+                <div class="warnInfoButtom" id="warnInfoNo" onclick="closeOverlay('warnInfo')">
                     <div>
                         <span>No</span>
                     </div>

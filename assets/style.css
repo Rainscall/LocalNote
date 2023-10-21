@@ -636,6 +636,59 @@ form {
     text-align: center;
 }
 
+#passwordInput{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+}
+
+#getPassword {
+    z-index: 950;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+#getPassword h1 {
+    color: #2d2d2d;
+}
+
+#getPassword p{
+    margin-top: 0.6em;
+    color: #777777;
+}
+
+#forgetPasswordButtom {
+    background-color: transparent;
+    text-align: center;
+    margin-top: 8px;
+    width: fit-content;
+}
+
+@keyframes getToRed {
+    from{
+        background-color: transparent;
+    }
+    to{
+        background-color: #840D23;
+    }
+}
+
+#forgetPasswordButtom:hover{
+    animation: getToRed 0.245s;
+    background-color: #840D23;
+}
+
+#forgetPasswordButtom:hover span{
+    color: #fff;
+}
+
+#forgetPasswordButtom span {
+    color: #484848;
+}
+
 @media screen and (prefers-color-scheme: dark) {
     .basePart {
         background-color: #1f1f1fba;
