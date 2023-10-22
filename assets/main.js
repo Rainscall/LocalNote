@@ -67,9 +67,12 @@ var passwordInputAction = 'login';
 function auth() {
     let decryptKeyHash = localStorage.getItem('decryptKeyHash');
     const getPassword = document.getElementById('getPassword');
+    const pwdTitle = document.getElementById('pwdTitle');
     if (!decryptKeyHash) {
         passwordInputAction = 'signUp';
+        pwdTitle.innerHTML = 'Sign Up';
     } else {
+        pwdTitle.innerHTML = 'Login';
         passwordInputAction = 'login';
     }
     getPassword.style.display = 'flex';
@@ -79,7 +82,6 @@ var decryptKey = 0;
 function passwordInput() {
     let decryptKeyHash = localStorage.getItem('decryptKeyHash');
     const passwordInput = document.getElementById('passwordInput');
-
     if (!passwordInput.value) {
         Toastify({
             text: "Input something please?",
@@ -95,7 +97,6 @@ function passwordInput() {
     }
 
     let tempDecryptKeyHash = getSHA3(passwordInput.value);
-
     if (passwordInputAction == 'signUp') {
         localStorage.setItem('decryptKeyHash', tempDecryptKeyHash);
         Toastify({
@@ -116,7 +117,7 @@ function passwordInput() {
                 duration: 3500,
                 className: "info",
                 position: "center",
-                gravity: "bottom",
+                gravity: "top",
                 style: {
                     background: "#414141",
                 }
