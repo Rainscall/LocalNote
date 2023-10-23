@@ -18,17 +18,44 @@
 
 <body onload="auth();">
 
+    <div class="listBasePart" id="standardWindow" style="display: none;">
+        <div class="mainPart">
+            <div class="childPart">
+                <h1 id="standardWindowTitle">[Title]</h1>
+                <p id="standardWindowInfo">[Info]</p>
+            </div>
+            <div class="childPart noMargin" style="padding-bottom: 0;">
+                <div class="standardInput">
+                    <form>
+                        <input type="text" id="standardInput1" placeholder="placeholder">
+                    </form>
+                </div>
+                <div class="standardInput" style="display: none;">
+                    <form>
+                        <input type="text" id="standardInput2" placeholder="placeholder">
+                    </form>
+                </div>
+            </div>
+            <div class="childPart noMargin">
+                <div class="closeStandardWindow" onclick="closeOverlay('standardWindow')">
+                    <span>close</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="listBasePart" id="getPassword" style="display: none;">
         <div class="mainPart">
             <div class="childPart">
                 <h1 id="pwdTitle">[Title]</h1>
-                <p id="pwdText">Your have to use a key to protect your data. Password for the old version is <nobr>Jqa3EgdssVlgMHYKtn8c</nobr></p>
+                <p id="pwdText">Your have to use a key to protect your data.</p>
             </div>
             <div class="warnInfoButtomArea" style="display: flex;flex-direction: column;flex-wrap: wrap;">
                 <div class="warnInfoButtom" style="width: 100%;">
                     <div>
                         <form action="javascript:passwordInput()">
-                            <input required maxlength="32" placeholder="Password here" type="password" name="passwordInput" id="passwordInput">
+                            <input required maxlength="32" placeholder="Password here" type="password"
+                                name="passwordInput" id="passwordInput">
                         </form>
                     </div>
                 </div>
@@ -111,6 +138,18 @@
                 </form>
                 <input style="display: none;" type="file" id="importNoteInput" accept=".txt"
                     onchange="importNoteStart()">
+            </div>
+
+            <div class="standardButtom noMargin">
+                <form class="noMargin">
+                    <div class="noMargin noPadding">
+                        <div class="noMargin" onclick="showChangePassword()" style="background-color: transparent;">
+                            <div class="noMargin noPadding" class="exImportButtom">
+                                <span class="exportNoteText">Change password</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="childPart noPadding">
                 <h2>List:</h2>

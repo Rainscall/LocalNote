@@ -119,7 +119,7 @@ function passwordInput() {
                 position: "center",
                 gravity: "top",
                 style: {
-                    background: "#414141",
+                    background: "#840D23",
                 }
             }).showToast();
             return;
@@ -203,7 +203,6 @@ function decryptAES256(ciphertext, key) {
 function openResetKeyMenu() {
     const warnInfo = document.getElementById('warnInfo');
     warnInfo.style.display = "flex";
-    console.log('114514');
 }
 
 function resetKey() {
@@ -635,4 +634,96 @@ function timeStampToDate(timeStamp) {
     var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
     var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
     return Y + M + D + h + m + s;
+}
+
+function focusOnElement(elementId) {
+    const element = document.getElementById(elementId);
+
+    if (element) {
+        element.focus();
+    } else {
+        console.error("Element with ID '" + elementId + "' not found.");
+    }
+}
+
+
+function showChangePassword() {
+    const standardWindow = document.getElementById('standardWindow');
+    const standardInput1 = document.getElementById('standardInput1');
+    const standardInput2 = document.getElementById('standardInput2');
+    const standardWindowTitle = document.getElementById('standardWindowTitle');
+    const standardWindowInfo = document.getElementById('standardWindowInfo');
+
+    standardInput2.parentNode.parentNode.style.display = 'inherit';
+    standardWindow.style.display = 'flex';
+    standardWindowTitle.innerText = 'Change password';
+    standardWindowInfo.innerText = 'Remember your password, if lost it is almost impossible to retrieve.';
+    standardInput1.type = 'password';
+    standardInput1.autocomplete = "off";
+    standardInput2.autocomplete = "off";
+    standardInput1.placeholder = 'Old password';
+    standardInput2.placeholder = 'New password';
+    standardInput1.parentNode.action = 'javascript:focusOnElement(\'standardInput2\')';
+    standardInput2.parentNode.action = 'javascript:startChangePassword()';
+}
+
+function startChangePassword() {
+    if (standardInput1.value && standardInput2.value) {
+        changePassword(standardInput1.value, standardInput2.value);
+    }
+}
+
+function changePassword(oldPassword, newPassword) {
+    let oldPasswordHash = getSHA3(oldPassword);
+    let newPasswordHash = getSHA3(newPassword);
+    if (oldPasswordHash == localStorage.getItem('decryptKeyHash')) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+
+            if (key.startsWith('note.')) {
+                const encryptedData = localStorage.getItem(key);
+
+                // 解密使用原密钥
+                const bytes = CryptoJS.AES.decrypt(encryptedData, oldPassword);
+                const originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+                // 使用新密钥加密并覆盖旧值
+                const encryptedWithNewKey = CryptoJS.AES.encrypt(originalText, newPassword).toString();
+                localStorage.setItem(key, encryptedWithNewKey);
+
+                // 修改密码hash值
+                localStorage.setItem('decryptKeyHash', newPasswordHash);
+
+                //修改时间戳
+                let oldTimeStamp = decryptAES256(localStorage.getItem('timeStamp.' + key), oldPassword);
+                let newTimeStamp = encryptAES256(oldTimeStamp, newPassword);
+                localStorage.setItem('timeStamp.' + key, newTimeStamp);
+            }
+        }
+        decryptKey = newPassword;
+        Toastify({
+            text: "Password changed.",
+            duration: 1200,
+            className: "info",
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "#414141",
+            }
+        }).showToast();
+        standardInput1.value = '';
+        standardInput2.value = '';
+        closeOverlay('standardWindow');
+    } else {
+        Toastify({
+            text: "Wrong password.",
+            duration: 3500,
+            className: "info",
+            position: "center",
+            gravity: "top",
+            style: {
+                background: "#840D23",
+            }
+        }).showToast();
+    }
 }
