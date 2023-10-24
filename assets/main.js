@@ -76,6 +76,8 @@ function auth() {
         passwordInputAction = 'login';
     }
     getPassword.style.display = 'flex';
+
+    scrollControl('deny');
 }
 
 var decryptKey = 0;
@@ -208,6 +210,7 @@ function decryptAES256(ciphertext, key) {
 function openResetKeyMenu() {
     const warnInfo = document.getElementById('warnInfo');
     warnInfo.style.display = "flex";
+    scrollControl('deny');
 }
 
 function resetKey() {
@@ -436,6 +439,7 @@ function openNote(noteKey, isQuiet) {
 }
 
 function closeOverlay(elementID) {
+    scrollControl('allow');
     document.getElementById(elementID).style.display = "none";
     basePart.setAttribute('style', '')
 }
@@ -671,6 +675,7 @@ function showChangePassword() {
     standardInput2.placeholder = 'New password';
     standardInput1.parentNode.action = 'javascript:focusOnElement(\'standardInput2\')';
     standardInput2.parentNode.action = 'javascript:startChangePassword()';
+    scrollControl('deny');
 }
 
 function startChangePassword() {
@@ -731,5 +736,21 @@ function changePassword(oldPassword, newPassword) {
                 background: "#840D23",
             }
         }).showToast();
+    }
+}
+
+function bodyScroll(event) {
+    event.preventDefault();
+}
+
+function scrollControl(t) {
+    window.scrollTo(0, 0);
+    if (t == 'deny') { //禁止滚动
+        document.body.addEventListener('wheel', this.bodyScroll, { passive: false });
+        document.body.addEventListener('touchmove', this.bodyScroll, { passive: false });
+
+    } else if (t == 'allow') { //开启滚动
+        document.body.removeEventListener('wheel', this.bodyScroll, { passive: false });
+        document.body.removeEventListener('touchmove', this.bodyScroll, { passive: false });
     }
 }
