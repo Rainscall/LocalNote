@@ -148,8 +148,13 @@ function startUp(isQuiet) {
 
     lastTime = localStorage.getItem('lastTime');
     if (lastTime) {
-        openNote(lastTime, 1);
-        return;
+        if (decryptAES256(localStorage.getItem(lastTime), decryptKey)) {
+            openNote(lastTime, 1);
+            return;
+        } else if (!decryptAES256(localStorage.getItem(lastTime), decryptKey)) {
+            removeFromLS(lastTime);
+            localStorage.removeItem('lastTime');
+        }
     }
 
     var localNote = readFromLS();
@@ -225,6 +230,7 @@ function resetKey() {
     selectBackgroundText.innerText = 'select background';
     closeOverlay('warnInfo');
     openMenuPage();
+    location.reload();
 }
 
 const noteNameInput = document.getElementById('noteNameInput');
@@ -360,7 +366,7 @@ function openMenuPage() {
                 if (localStorage.getItem('timeStamp.' + key)) {
                     timeStampSpan = timeStampToDate(readTimeStampFromLS('timeStamp.' + key));
                 } else {
-                    timeStampSpan = 'Unknown';
+                    timeStampSpan = '[unknown]';
                 }
                 itemDiv.innerHTML = key.slice(5) + '<span class=\'timeStampSpan\'>' + timeStampSpan + '</span>'
                 delButtom.setAttribute("onclick", "removeFromLS(\"" + key + "\")");
@@ -413,7 +419,7 @@ function openNote(noteKey, isQuiet) {
     } else {
         noteArea.innerText = '';
         titleBar.innerText = 'LocalNote'
-        localStorage.setItem('lastTime', 'LocalNote');
+        // localStorage.setItem('lastTime', 'note.LocalNote');
         if (isQuiet == 0) {
             Toastify({
                 text: "Note loaded.",

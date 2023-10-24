@@ -740,6 +740,15 @@ form {
     background-color: #cdcdcd61;
 }
 
+#pwdText {
+    line-height: 1.2em;
+}
+
+#pwdText a {
+    color: #424242;
+    font-weight: 450;
+}
+
 @media screen and (prefers-color-scheme: dark) {
     .basePart {
         background-color: #1f1f1fba;
