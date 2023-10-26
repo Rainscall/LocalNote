@@ -22,12 +22,44 @@ observer.observe(noteArea, config);
 // 初始化定时器变量
 var toastTimeout;
 
-//监听页面失焦后重新聚焦，并重新读取localstorage
-document.addEventListener('visibilitychange', function () {
+document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
         startUp(1);
     }
-})
+});
+
+// 定义一个变量来跟踪标签页是否获得焦点
+let isTabFocused = true;
+
+// 当标签页失焦时触发的事件
+window.addEventListener('blur', () => {
+    isTabFocused = false;
+    safeWindow();
+});
+
+// 当标签页重新获得焦点时触发的事件
+window.addEventListener('focus', () => {
+    isTabFocused = true;
+    closeOverlay('standardWindow');
+});
+
+
+
+function safeWindow() {
+    const standardWindow = document.getElementById('standardWindow');
+    const standardInput1 = document.getElementById('standardInput1');
+    const standardInput2 = document.getElementById('standardInput2');
+    const standardWindowTitle = document.getElementById('standardWindowTitle');
+    const standardWindowInfo = document.getElementById('standardWindowInfo');
+
+    standardInput2.parentNode.parentNode.style.display = 'inherit';
+    standardWindow.style.display = 'flex';
+    standardWindowTitle.innerText = 'Safe window';
+    standardWindowInfo.innerText = 'Not available when this page is in the background.';
+    standardInput1.parentNode.parentNode.style.display = 'none';
+    standardInput2.parentNode.parentNode.style.display = 'none';
+}
+
 
 noteArea.addEventListener('paste', function (e) {
     e.preventDefault(); // 阻止默认行为，即阻止将粘贴的内容插入到div中
