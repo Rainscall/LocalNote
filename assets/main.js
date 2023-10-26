@@ -28,22 +28,49 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-// 定义一个变量来跟踪标签页是否获得焦点
-let isTabFocused = true;
-
-// 当标签页失焦时触发的事件
-window.addEventListener('blur', () => {
-    isTabFocused = false;
-    safeWindow();
-});
-
 // 当标签页重新获得焦点时触发的事件
 window.addEventListener('focus', () => {
     isTabFocused = true;
     closeOverlay('standardWindow');
 });
 
+let isTabFocused = true;
 
+if (!localStorage.getItem('enableSafeWindow')) {
+    localStorage.setItem('enableSafeWindow', 'false');
+}
+
+// 当标签页失焦时触发的事件
+window.addEventListener('blur', () => {
+    if (localStorage.getItem('enableSafeWindow') == 'true') {
+        isTabFocused = false;
+        safeWindow();
+    }
+});
+
+function initChangeSafeWindowButtom(){
+    let currentStatus = localStorage.getItem('enableSafeWindow');
+    if (currentStatus == 'true') {
+        changeSafeWindowText.innerText = 'Enable Safe Window';
+    }
+    if (currentStatus == 'false') {
+        changeSafeWindowText.innerText = 'Disable Safe Window';
+    }
+}
+
+function changeSafeWindow() {
+    const changeSafeWindowText = document.getElementById('changeSafeWindowText');
+    let currentStatus = localStorage.getItem('enableSafeWindow');
+    if (currentStatus == 'true') {
+        localStorage.setItem('enableSafeWindow', 'false');
+        changeSafeWindowText.innerText = 'Enable Safe Window';
+    }
+    if (currentStatus == 'false') {
+        localStorage.setItem('enableSafeWindow', 'true');
+        changeSafeWindowText.innerText = 'Disable Safe Window';
+    }
+
+}
 
 function safeWindow() {
     const standardWindow = document.getElementById('standardWindow');
@@ -178,6 +205,7 @@ function startUp(isQuiet) {
         selectBackgroundText.parentNode.parentNode.style.backgroundImage = 'url(\'' + backgroundImageData + '\')';
     }
 
+    initChangeSafeWindowButtom();
     diskSpace.innerText = (getLocalStorageUsage() / 1024 / 1024).toFixed(4) + '/' + (getBrowserStorageLimit());
 
     lastTime = localStorage.getItem('lastTime');
