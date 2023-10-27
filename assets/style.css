@@ -267,7 +267,8 @@ h1 {
     word-break: normal;
     text-align: left;
     font-size: 1.1em;
-    min-height: 75vh;
+    min-height: 77vh;
+    max-height: 77vh;
     height: 100%;
     overflow-y: scroll;
     padding: 4px;
