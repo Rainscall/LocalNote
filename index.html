@@ -48,8 +48,9 @@
         <div class="mainPart">
             <div class="childPart">
                 <h1 id="pwdTitle">[Title]</h1>
-                <p id="pwdText">Your have to use a key to protect your data.<br />This is an open-source software:&nbsp;<a
-                        href="https://github.com/Rainscall/LocalNote" draggable="false" target="_blank">Github</a></p>
+                <p id="pwdText">Your have to use a key to protect your data.<br />This is an open-source
+                    software:&nbsp;<a href="https://github.com/Rainscall/LocalNote" draggable="false"
+                        target="_blank">Github</a></p>
             </div>
             <div class="warnInfoButtomArea" style="display: flex;flex-direction: column;flex-wrap: wrap;">
                 <div class="warnInfoButtom" style="width: 100%;">
@@ -175,23 +176,15 @@
                     <span>storage space: <span id="diskSpace"></span>m</span>
                 </div>
             </div>
-            <div>
-            </div>
-            <div class="closeOverlayBar">
+
+            <div class="childPart closeMenuBar noMargin noPadding">
                 <div>
-                    <div class="resetButtom">
-                        <a style="color: #777777;" onclick="openResetKeyMenu();" href="javascript:void(0);">
-                            <span id="resetKeyText">reset</span>
-                        </a>
-                    </div>
-                    <div class="closeOverlayButtom" onclick="closeOverlay('listBasePart');">
-                        <a href="javascript:void(0);" id="closeOverlay">
-                            <span id="">close</span>
-                        </a>
-                    </div>
+                    <a href="javascript:void(0)" onclick="openResetKeyMenu();">reset</a>
+                </div>
+                <div>
+                    <a href="javascript:void(0)" onclick="closeOverlay('listBasePart');">close</a>
                 </div>
             </div>
-
         </div>
     </div>
 

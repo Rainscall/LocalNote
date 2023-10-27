@@ -408,16 +408,6 @@ form {
     color: #fff;
 }
 
-.closeOverlayBar {
-    max-width: calc(512px + 24px);
-    width: calc(80vw + 24px);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-}
-
 .closeOverlayButtom {
     background-color: #cecdcd59;
     cursor: pointer;
@@ -426,8 +416,42 @@ form {
     text-align: center;
     margin-left: 8px;
     border-radius: 16px;
+}
+
+.closeMenuBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeMenuBar a {
+    display: block;
+    color: #fff;
+    padding: 8px;
+    background-color: #cecdcd59;
+    border-radius: 16px;
+    min-width: 4em;
+    text-align: center;
+}
+
+.closeMenuBar div:first-child {
+    margin-right: 8px;
+}
+
+.closeMenuBar div:first-child a {
+    background-color: #903c4b;
+}
+
+.closeMenuBar div:last-child a {
+    color: #777777;
+    max-width: calc(512px - 24px - 4em);
+    width: calc(80vw - 4em - 24px);
 
 }
+
+
 
 .closeOverlayButtom:hover {
     animation: getDarker 0.445s;
@@ -737,7 +761,7 @@ form {
     transition: background-color 0.245s ease-in-out;
 }
 
-.closeStandardWindow:hover{
+.closeStandardWindow:hover {
     background-color: #cdcdcd61;
 }
 
