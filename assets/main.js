@@ -42,19 +42,19 @@ if (!localStorage.getItem('enableSafeWindow')) {
 
 // 当标签页失焦时触发的事件
 window.addEventListener('blur', () => {
-    if (localStorage.getItem('enableSafeWindow') == 'true') {
+    if (localStorage.getItem('enableSafeWindow') == 'true' && document.getElementById('getPassword').style.display == 'none') {
         isTabFocused = false;
         safeWindow();
     }
 });
 
-function initChangeSafeWindowButtom(){
+function initChangeSafeWindowButtom() {
     let currentStatus = localStorage.getItem('enableSafeWindow');
     if (currentStatus == 'true') {
-        changeSafeWindowText.innerText = 'Enable Safe Window';
+        changeSafeWindowText.innerText = 'Disable Safe Window';
     }
     if (currentStatus == 'false') {
-        changeSafeWindowText.innerText = 'Disable Safe Window';
+        changeSafeWindowText.innerText = 'Enable Safe Window';
     }
 }
 
@@ -724,6 +724,7 @@ function showChangePassword() {
     const standardWindowTitle = document.getElementById('standardWindowTitle');
     const standardWindowInfo = document.getElementById('standardWindowInfo');
 
+    standardInput1.parentNode.parentNode.style.display = 'inherit';
     standardInput2.parentNode.parentNode.style.display = 'inherit';
     standardWindow.style.display = 'flex';
     standardWindowTitle.innerText = 'Change password';
