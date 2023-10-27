@@ -181,6 +181,8 @@ body::-webkit-scrollbar {
     background-color: #ffffffdc;
     min-height: 100vh;
     min-height: 100svh;
+    min-height: 100dvh;
+    max-height: 100dvh;
 }
 
 .mainPart {
@@ -206,38 +208,17 @@ body::-webkit-scrollbar {
     flex-wrap: nowrap;
 }
 
-
-@keyframes originInputHoverIn {
-    from {
-        box-shadow: 0 0 14px 3px #dddddd8a;
-    }
-
-    to {
-        box-shadow: 0 0 20px 5px #b7b7b761;
-    }
-}
-
-@keyframes originInputHoverOut {
-    from {
-        box-shadow: 0 0 20px 5px #b7b7b761;
-    }
-
-    to {
-        box-shadow: 0 0 14px 3px #dddddd8a;
-    }
-}
-
 .originInput {
     background-color: #ffffff42;
-    border-radius: 16px;
+    /* border-radius: 16px; */
     padding: 4px;
-    box-shadow: 0 0 14px 3px #dddddd8a;
-    animation: originInputHoverOut 0.246s;
+    /* box-shadow: 0 0 14px 3px #dddddd8a; */
+    box-shadow: none;
+    transition: ease-in-out box-shadow 0.234s;
 }
 
 .originInput:hover {
-    box-shadow: 0 0 20px 5px #b7b7b761;
-    animation: originInputHoverIn 0.246s;
+    box-shadow: -17px 0px 17px -12px rgba(0, 0, 0, 0.1), 17px 0px 17px -12px rgba(0, 0, 0, 0.1);
 }
 
 .opBar {
@@ -286,8 +267,7 @@ h1 {
     word-break: normal;
     text-align: left;
     font-size: 1.1em;
-    min-height: 57vh;
-    max-height: 57vh;
+    min-height: 75vh;
     height: 100%;
     overflow-y: scroll;
     padding: 4px;
@@ -370,7 +350,9 @@ h1 {
 }
 
 #titleBar {
-    color: #484848;
+    color: #000000;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 form {
@@ -430,6 +412,7 @@ form {
     display: block;
     color: #fff;
     padding: 8px;
+    padding-bottom: 6px;
     background-color: #cecdcd59;
     border-radius: 16px;
     min-width: 4em;
